@@ -13,14 +13,24 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+if (process.env.NODE_ENV === 'development') {
+  const originalError = console.error;
+  console.error = (...args) => {
+    if (args[0] && args[0].includes('Hydration failed')) {
+      return;
+    }
+    originalError(...args);
+  };
+}
+
 export const metadata: Metadata = {
-  title: "CV Distributor App",
-  description: "Aplikasi PWA untuk CV Distributor",
+  title: "CV Distributor Aufa Fahira",
+  description: "Aplikasi Distributor Developed By Sunarko",
   themeColor: "#000000",
   manifest: "/manifest.json",
   icons: {
-    icon: "/icons/icon-192x192.png",      
-    apple: "/icons/icon-192x192.png",
+    icon: "/icon-sosro.svg",      
+    apple: "/icon-sosro.svg",
   },
 };
 
