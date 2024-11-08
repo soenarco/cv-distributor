@@ -1,27 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
-if (process.env.NODE_ENV === 'development') {
-  const originalError = console.error;
-  console.error = (...args) => {
-    if (args[0] && args[0].includes('Hydration failed')) {
-      return;
-    }
-    originalError(...args);
-  };
-}
 
 export const metadata: Metadata = {
   title: "CV Distributor Aufa Fahira",
@@ -41,9 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body>
         {children}
       </body>
     </html>
   );
-}
+};
