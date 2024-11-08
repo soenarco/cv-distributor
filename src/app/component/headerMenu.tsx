@@ -56,7 +56,11 @@ const HeaderMenu = () => {
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <img src="/icon-sosro.svg" alt="Logo" className="h-8 w-auto" />
+            <img
+              src="/icon-sosro.svg"
+              alt="Logo"
+              className="h-12 p-1 w-auto border-4 border-red-600 rounded-md"
+            />
           </Link>
         </div>
 
