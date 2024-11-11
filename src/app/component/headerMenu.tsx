@@ -50,6 +50,11 @@ const driverMenu = [
 
 const HeaderMenu = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+
+  const handleLogout = () => {
+    setIsLogin(false);
+  };
 
   return (
     <header className="bg-white">
@@ -145,9 +150,21 @@ const HeaderMenu = () => {
         </PopoverGroup>
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="#" className="text-sm font-semibold text-gray-900">
-            Masuk <span aria-hidden="true">&rarr;</span>
-          </Link>
+          {isLogin ? (
+            <button
+              onClick={handleLogout}
+              className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-700 transition-colors duration-300"
+            >
+              Keluar
+            </button>
+          ) : (
+            <Link
+              href="login"
+              className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-700 transition-colors duration-300"
+            >
+              Masuk
+            </Link>
+          )}
         </div>
       </nav>
 
@@ -217,9 +234,21 @@ const HeaderMenu = () => {
           </Disclosure>
 
           <div className="mt-6 border-t pt-6">
-            <Link href="#" className="-m-1.5 block rounded-lg py-1.5 text-gray-900">
-              Masuk
-            </Link>
+            {isLogin ? (
+              <button
+                className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-600 transition-colors duration-300"
+              >
+                Keluar
+              </button>
+            ) : (
+              <Link
+                href="login"
+                className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-600 transition-colors duration-300"
+              >
+                Masuk
+              </Link>
+            )}
+
           </div>
         </DialogPanel>
       </Dialog>
