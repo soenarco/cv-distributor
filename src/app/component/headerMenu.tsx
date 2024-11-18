@@ -52,21 +52,28 @@ const driverMenu = [
 const HeaderMenu = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const isAuthPage = pathname === '/login' || pathname === '/register';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [isAuthPage, setIsAuthPage] = useState(true);
 
   const handleLogout = () => {
     setIsLogin(false);
+    localStorage.removeItem('userLogin');
+    router.push('/login');
   };
  
   useEffect(() => {
-    const token = localStorage.getItem('userLogin');
-    if (!token) {
+    const userLogin = localStorage.getItem('userLogin');
+    if (!userLogin) {
       router.push('/login');
+    } else {
+      setIsLogin(true);
     }
   }, [router]);
-  
+
+  useEffect(() => {
+    setIsAuthPage(pathname === '/login' || pathname === '/register');
+  }, [pathname]);
 
   return (
     <>
