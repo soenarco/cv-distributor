@@ -53,27 +53,25 @@ const HeaderMenu = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
   const [isAuthPage, setIsAuthPage] = useState(true);
+  const [roleUser, setRoleUser] = useState(null);
 
   const handleLogout = () => {
-    setIsLogin(false);
     localStorage.removeItem('userLogin');
     router.push('/login');
   };
- 
+
   useEffect(() => {
     const userLogin = localStorage.getItem('userLogin');
+    const parsedUser = userLogin ? JSON.parse(userLogin) : null;
+    
     if (!userLogin) {
       router.push('/login');
     } else {
-      setIsLogin(true);
+      setRoleUser(parsedUser?.role);
     }
-  }, [router]);
-
-  useEffect(() => {
     setIsAuthPage(pathname === '/login' || pathname === '/register');
-  }, [pathname]);
+  }, [pathname, router]);
 
   return (
     <>
@@ -105,87 +103,80 @@ const HeaderMenu = () => {
                 Produk
               </Link>
 
-              <Popover className="relative">
-                <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold text-gray-900">
-                  Sales
-                  <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-                </PopoverButton>
-                <PopoverPanel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                  <div className="p-4">
-                    {salesMenu.map((item) => (
-                      <Link key={item.name} href={item.href} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-                        <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
-                        <div>
-                          <span className="block font-semibold text-gray-900">{item.name}</span>
-                          <p className="mt-1 text-gray-600">{item.description}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </PopoverPanel>
-              </Popover>
+              {(roleUser === 'SALES' || roleUser === 'SUPERADMIN') && (
+                <Popover className="relative">
+                  <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold text-gray-900">
+                    Sales
+                    <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
+                  </PopoverButton>
+                  <PopoverPanel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                    <div className="p-4">
+                      {salesMenu.map((item) => (
+                        <Link key={item.name} href={item.href} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                          <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
+                          <div>
+                            <span className="block font-semibold text-gray-900">{item.name}</span>
+                            <p className="mt-1 text-gray-600">{item.description}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </PopoverPanel>
+                </Popover>
+              )}
 
-              <Popover className="relative">
-                <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold text-gray-900">
-                  Transaksi
-                  <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-                </PopoverButton>
-                <PopoverPanel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                  <div className="p-4">
-                    {transactionMenu.map((item) => (
-                      <Link key={item.name} href={item.href} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-                        <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
-                        <div>
-                          <span className="block font-semibold text-gray-900">{item.name}</span>
-                          <p className="mt-1 text-gray-600">{item.description}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </PopoverPanel>
-              </Popover>
+              {(roleUser === 'ADMIN' || roleUser === 'SUPERADMIN') && (
+                <Popover className="relative">
+                  <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold text-gray-900">
+                    Transaksi
+                    <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
+                  </PopoverButton>
+                  <PopoverPanel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                    <div className="p-4">
+                      {transactionMenu.map((item) => (
+                        <Link key={item.name} href={item.href} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                          <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
+                          <div>
+                            <span className="block font-semibold text-gray-900">{item.name}</span>
+                            <p className="mt-1 text-gray-600">{item.description}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </PopoverPanel>
+                </Popover>
+              )}
 
-              <Popover className="relative">
-                <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold text-gray-900">
-                  Pengiriman
-                  <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-                </PopoverButton>
-                <PopoverPanel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                  <div className="p-4">
-                    {driverMenu.map((item) => (
-                      <Link key={item.name} href={item.href} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-                        <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
-                        <div>
-                          <span className="block font-semibold text-gray-900">{item.name}</span>
-                          <p className="mt-1 text-gray-600">{item.description}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </PopoverPanel>
-              </Popover>
-
-              <Link href="#" className="text-sm font-semibold text-gray-900">
-                Tentang
-              </Link>
+              {(roleUser === 'DRIVER' || roleUser === 'SUPERADMIN') && (
+                <Popover className="relative">
+                  <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold text-gray-900">
+                    Pengiriman
+                    <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
+                  </PopoverButton>
+                  <PopoverPanel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                    <div className="p-4">
+                      {driverMenu.map((item) => (
+                        <Link key={item.name} href={item.href} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                          <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
+                          <div>
+                            <span className="block font-semibold text-gray-900">{item.name}</span>
+                            <p className="mt-1 text-gray-600">{item.description}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </PopoverPanel>
+                </Popover>
+              )}
             </PopoverGroup>
 
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              {isLogin ? (
-                <button
-                  onClick={handleLogout}
-                  className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-700 transition-colors duration-300"
-                >
-                  Keluar
-                </button>
-              ) : (
-                <Link
-                  href="login"
-                  className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-700 transition-colors duration-300"
-                >
-                  Masuk
-                </Link>
-              )}
+              <button
+                onClick={handleLogout}
+                className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-700 transition-colors duration-300"
+              >
+                Keluar
+              </button>
             </div>
           </nav>
 
@@ -215,61 +206,57 @@ const HeaderMenu = () => {
                 </DisclosureButton>
               </Disclosure>
 
-              <Disclosure as="div" className="mt-4">
-                <DisclosureButton className="-m-2.5 flex items-center rounded-lg p-2.5 text-gray-700">
-                  <span className="text-base font-semibold text-gray-900">Sales</span>
-                </DisclosureButton>
-                <DisclosurePanel className="mt-2 space-y-2">
-                  {salesMenu.map((item) => (
-                    <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
-                      {item.name}
-                    </Link>
-                  ))}
-                </DisclosurePanel>
-              </Disclosure>
+              {(roleUser === 'SALES' || roleUser === 'SUPERADMIN') && (
+                <Disclosure as="div" className="mt-4">
+                  <DisclosureButton className="-m-2.5 flex items-center rounded-lg p-2.5 text-gray-700">
+                    <span className="text-base font-semibold text-gray-900">Sales</span>
+                  </DisclosureButton>
+                  <DisclosurePanel className="mt-2 space-y-2">
+                    {salesMenu.map((item) => (
+                      <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
+                        {item.name}
+                      </Link>
+                    ))}
+                  </DisclosurePanel>
+                </Disclosure>
+              )}
+              {(roleUser === 'ADMIN' || roleUser === 'SUPERADMIN') && (
+                <Disclosure as="div" className="mt-4">
+                  <DisclosureButton className="-m-2.5 flex items-center rounded-lg p-2.5 text-gray-700">
+                    <span className="text-base font-semibold text-gray-900">Transaksi</span>
+                  </DisclosureButton>
+                  <DisclosurePanel className="mt-2 space-y-2">
+                    {transactionMenu.map((item) => (
+                      <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
+                        {item.name}
+                      </Link>
+                    ))}
+                  </DisclosurePanel>
+                </Disclosure>
+              )}
 
-              <Disclosure as="div" className="mt-4">
-                <DisclosureButton className="-m-2.5 flex items-center rounded-lg p-2.5 text-gray-700">
-                  <span className="text-base font-semibold text-gray-900">Transaksi</span>
-                </DisclosureButton>
-                <DisclosurePanel className="mt-2 space-y-2">
-                  {transactionMenu.map((item) => (
-                    <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
-                      {item.name}
-                    </Link>
-                  ))}
-                </DisclosurePanel>
-              </Disclosure>
-
-              <Disclosure as="div" className="mt-4">
-                <DisclosureButton className="-m-2.5 flex items-center rounded-lg p-2.5 text-gray-700">
-                  <span className="text-base font-semibold text-gray-900">Pengiriman</span>
-                </DisclosureButton>
-                <DisclosurePanel className="mt-2 space-y-2">
-                  {driverMenu.map((item) => (
-                    <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
-                      {item.name}
-                    </Link>
-                  ))}
-                </DisclosurePanel>
-              </Disclosure>
+              {(roleUser === 'DRIVER' || roleUser === 'SUPERADMIN') && (
+                <Disclosure as="div" className="mt-4">
+                  <DisclosureButton className="-m-2.5 flex items-center rounded-lg p-2.5 text-gray-700">
+                    <span className="text-base font-semibold text-gray-900">Pengiriman</span>
+                  </DisclosureButton>
+                  <DisclosurePanel className="mt-2 space-y-2">
+                    {driverMenu.map((item) => (
+                      <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
+                        {item.name}
+                      </Link>
+                    ))}
+                  </DisclosurePanel>
+                </Disclosure>
+              )}
 
               <div className="mt-6 border-t pt-6">
-                {isLogin ? (
-                  <button
-                    className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-600 transition-colors duration-300"
-                  >
-                    Keluar
-                  </button>
-                ) : (
-                  <Link
-                    href="login"
-                    className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-600 transition-colors duration-300"
-                  >
-                    Masuk
-                  </Link>
-                )}
-
+                <button
+                  onClick={handleLogout}
+                  className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-600 transition-colors duration-300"
+                >
+                  Keluar
+                </button>
               </div>
             </DialogPanel>
           </Dialog>
