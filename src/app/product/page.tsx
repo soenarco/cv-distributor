@@ -20,7 +20,6 @@ export type Product = {
 export default function ProductPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -28,11 +27,7 @@ export default function ProductPage() {
         const data = await apiGetAllProduct();
         setProducts(data);
       } catch (error: unknown) {
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError('Terjadi kesalahan saat memuat data produk');
-        }
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -43,10 +38,6 @@ export default function ProductPage() {
 
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
   }
 
   return (
