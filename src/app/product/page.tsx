@@ -26,7 +26,8 @@ export default function ProductPage() {
       try {
         const data = await apiGetAllProduct();
         setProducts(data);
-      } catch (error: any) {
+      } catch (error) {
+        console.error(error);
       } finally {
         setLoading(false);
       }
