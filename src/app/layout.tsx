@@ -30,7 +30,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
 
         {/* Footer */}
-        <footer className="bg-white py-6 text-center text-sm text-gray-500">
+        <footer className="bg-white py-6 text-center text-xs text-gray-500">
           <p>&copy; {currentYear} CV Distributor Aufa Fahira. Developed by <strong>Sunarko</strong></p>
         </footer>
       </body>

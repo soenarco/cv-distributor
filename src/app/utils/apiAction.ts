@@ -42,3 +42,14 @@ export const apiRegister = async (email: string, username: string, password: str
     }
 };
 
+export const apiGetAllProduct = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/v1/product`);
+        return response.data;
+    } catch (error) {
+        console.error('Fetch Product Error:', error);
+        throw new Error('Fetch Product failed');
+    }
+};
+
+
