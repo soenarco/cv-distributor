@@ -13,7 +13,7 @@ interface LoginJwtPayload extends JwtPayload {
 
 export const apiLogin = async (identifier: string, password: string) => {
     try {
-        const response = await axios.post(`${API_URL}/auth/login`, { identifier, password });
+        const response = await axios.post(`${API_URL}/v1/auth/login`, { identifier, password });
         if (response.data?.token) {
             const token = response.data?.token;
             const decoded = jwt.decode(token) as LoginJwtPayload;;
@@ -34,7 +34,7 @@ export const apiLogin = async (identifier: string, password: string) => {
 
 export const apiRegister = async (email: string, username: string, password: string) => {
     try {
-        const response = await axios.post(`${API_URL}/auth/register`, { email, username, password });
+        const response = await axios.post(`${API_URL}/v1/auth/register`, { email, username, password });
         return response.data;
     } catch (error) {
         console.error('Register API Error:', error);
