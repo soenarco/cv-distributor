@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiLogin } from '../utils/apiAction';
+import CustomButton from '@/app/component/customButton';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const LoginPage = () => {
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form className="space-y-6">
           <div>
             <label htmlFor="identifier" className="block text-sm font-medium text-gray-900">
               Email atau Nomor HP
@@ -73,12 +74,12 @@ const LoginPage = () => {
             </div>
           </div>
           <div>
-            <button
-              type="submit"
+            <CustomButton 
+              onClick={handleSubmit}
+              isDisabled={!password || !identifier}
+              buttonText="Masuk"
               className="flex w-full justify-center rounded-md bg-red-600 p-2 font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-            >
-              Masuk
-            </button>
+            />
           </div>
         </form>
       </div>

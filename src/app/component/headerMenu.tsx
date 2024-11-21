@@ -25,6 +25,7 @@ import {
 } from "@headlessui/react";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from 'next/navigation';
+import CustomButton from '@/app/component/customButton';
 
 const salesMenu = [
   { name: "Customer", description: "Data Customer, Alamat dan toko", href: "#", icon: BuildingStorefrontIcon },
@@ -72,6 +73,10 @@ const HeaderMenu = () => {
     }
     setIsAuthPage(pathname === '/login' || pathname === '/register');
   }, [pathname, router]);
+
+  const closeDialogMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -171,12 +176,11 @@ const HeaderMenu = () => {
             </PopoverGroup>
 
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <button
-                onClick={handleLogout}
-                className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-700 transition-colors duration-300"
-              >
-                Keluar
-              </button>
+              <CustomButton 
+                  onClick={handleLogout}
+                  buttonText="Keluar"
+                  className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-700 transition-colors duration-300"
+                />
             </div>
           </nav>
 
@@ -185,7 +189,7 @@ const HeaderMenu = () => {
             <div className="fixed inset-0 z-10" />
             <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm">
               <div className="flex items-center justify-between">
-                <Link href="#" className="-m-1.5 p-1.5">
+                <Link onClick={closeDialogMenu} href="#" className="-m-1.5 p-1.5">
                   <img src="/icon-sosro.svg" alt="Logo" className="h-8 w-auto" />
                 </Link>
                 <button
@@ -200,7 +204,7 @@ const HeaderMenu = () => {
               {/* Mobile Menu Links */}
               <Disclosure as="div" className="mt-6">
                 <DisclosureButton className="flex items-center rounded-lg text-gray-700">
-                  <Link href="product" className="block rounded-lg text-gray-900 font-semibold">
+                  <Link onClick={closeDialogMenu} href="product" className="block rounded-lg text-gray-900 font-semibold">
                     Produk
                   </Link>
                 </DisclosureButton>
@@ -213,7 +217,7 @@ const HeaderMenu = () => {
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
                     {salesMenu.map((item) => (
-                      <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
+                      <Link onClick={closeDialogMenu} key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
                         {item.name}
                       </Link>
                     ))}
@@ -227,7 +231,7 @@ const HeaderMenu = () => {
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
                     {transactionMenu.map((item) => (
-                      <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
+                      <Link onClick={closeDialogMenu} key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
                         {item.name}
                       </Link>
                     ))}
@@ -242,7 +246,7 @@ const HeaderMenu = () => {
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
                     {driverMenu.map((item) => (
-                      <Link key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
+                      <Link onClick={closeDialogMenu} key={item.name} href={item.href} className="block rounded-lg p-2 text-gray-900">
                         {item.name}
                       </Link>
                     ))}
@@ -251,12 +255,11 @@ const HeaderMenu = () => {
               )}
 
               <div className="mt-6 border-t pt-6">
-                <button
+                <CustomButton 
                   onClick={handleLogout}
+                  buttonText="Keluar"
                   className="text-sm font-semibold text-red-600 border-2 border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-600 transition-colors duration-300"
-                >
-                  Keluar
-                </button>
+                />
               </div>
             </DialogPanel>
           </Dialog>

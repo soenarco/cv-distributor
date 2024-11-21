@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import CardImage from '@/app/component/cardImage';
 import { apiGetAllProduct } from '@/app/utils/apiAction';
+import LoadingScreen from '@/app/component/loadingScreen'
 
 export type Product = {
   id: number;
@@ -37,7 +38,7 @@ export default function ProductPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingScreen isVisible={loading}/>
   }
 
   return (
