@@ -42,7 +42,7 @@ const transactionMenu = [
   { name: "Sales", description: "Data Sales distributor", href: "#", icon: IdentificationIcon },
   { name: "Driver", description: "Data sopir distributor", href: "#", icon: IdentificationIcon },
   { name: "Armada", description: "Data kendaraan distributor", href: "#", icon: TruckIcon },
-  { name: "Produk", description: "Data Produk distributor", href: "#", icon: GiftIcon },
+  { name: "Produk", description: "Data Produk distributor", href: "admin/product", icon: GiftIcon },
 ];
 
 const driverMenu = [
@@ -81,7 +81,7 @@ const HeaderMenu = () => {
   return (
     <>
       {!isAuthPage && (
-        <header className="bg-white">
+        <header className="bg-white border-b-4 border-red-600">
           <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
             <div className="flex lg:flex-1">
               <Link href="/" className="-m-1.5 p-1.5">
@@ -190,7 +190,7 @@ const HeaderMenu = () => {
             <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm">
               <div className="flex items-center justify-between">
                 <Link onClick={closeDialogMenu} href="#" className="-m-1.5 p-1.5">
-                  <img src="/icon-sosro.svg" alt="Logo" className="h-8 w-auto" />
+                  <img src="/icon-sosro.svg" alt="Logo" className="h-8 w-auto p-1 border-4 border-red-600 rounded-md" />
                 </Link>
                 <button
                   type="button"
