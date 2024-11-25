@@ -29,7 +29,7 @@ const formatDate = (value: string) => {
   });
 };
 
-const formatColumnValue = (type: string, value: any) => {
+const formatColumnValue = (type: string, value: string) => {
   switch (type) {
     case 'currency':
       return formatCurrency(Number(value));
@@ -68,7 +68,7 @@ const TableList = <T,>({ data, columns }: TableListProps<T>) => {
               <td className="px-6 py-4 text-gray-700">{rowIndex + 1}</td>
               {columns.map((column) => (
                 <td key={String(column.key)} className="px-6 py-4 text-gray-700">
-                  {formatColumnValue(column.type, item[column.key])}
+                  {formatColumnValue(column.type, String(item[column.key]))}
                 </td>
               ))}
               <td className="px-6 py-4 text-gray-700 flex justify-between">
