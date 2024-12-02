@@ -42,7 +42,7 @@ const transactionMenu = [
   { name: "Sales", description: "Data Sales distributor", href: "#", icon: IdentificationIcon },
   { name: "Driver", description: "Data sopir distributor", href: "#", icon: IdentificationIcon },
   { name: "Armada", description: "Data kendaraan distributor", href: "#", icon: TruckIcon },
-  { name: "Produk", description: "Data Produk distributor", href: "admin/product", icon: GiftIcon },
+  { name: "Produk", description: "Data Produk distributor", href: "/admin/product", icon: GiftIcon },
 ];
 
 const driverMenu = [
