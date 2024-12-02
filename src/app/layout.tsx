@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col min-h-screen bg-gray-100">
         {/* Header */}
-        {/* <HeaderMenu /> */}
+        <HeaderMenu />
 
         {/* Main Content */}
         <main className="flex-1">{children}</main>
