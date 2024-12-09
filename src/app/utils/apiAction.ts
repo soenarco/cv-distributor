@@ -16,7 +16,7 @@ export const apiLogin = async (identifier: string, password: string) => {
         const response = await axios.post(`${API_URL}/v1/auth/login`, { identifier, password });
         if (response.data?.token) {
             const token = response.data?.token;
-            const decoded = jwt.decode(token) as LoginJwtPayload;;
+            const decoded = jwt.decode(token) as LoginJwtPayload;
             localStorage.setItem('userLogin', JSON.stringify({
                 id: decoded?.id,
                 role: decoded?.role,
@@ -52,4 +52,39 @@ export const apiGetAllProduct = async () => {
     }
 };
 
+export const apiPostProduct = async (
+  product: {
+    name: string;
+    description: string;
+    package: string;
+    totalInPackage: number;
+    image: string;
+    size: string;
+    harga: number;
+    isReadyStock: boolean;
+  }
+) => {
+    try {
+        const formData = new FormData();
 
+        formData.append('name', product.name);
+        formData.append('description', product.description);
+        formData.append('package', product.package);
+        formData.append('totalInPackage', product.totalInPackage.toString());
+        formData.append('size', product.size);
+        formData.append('harga', product.harga.toString());
+        formData.append('isReadyStock', product.isReadyStock.toString());
+        formData.append('image', product.image);
+
+        const response = await axios.post(`${API_URL}/v1/product`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error('Create Product Error:', error);
+        throw new Error('Failed to create product');
+    }
+};

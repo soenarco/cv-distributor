@@ -28,26 +28,26 @@ import { usePathname, useRouter } from 'next/navigation';
 import CustomButton from '@/app/component/customButton';
 
 const salesMenu = [
-  { name: "Customer", description: "Data Customer, Alamat dan toko", href: "#", icon: BuildingStorefrontIcon },
-  { name: "Pembelian", description: "Data Pembelian Customer melalui Sales", href: "#", icon: ShoppingBagIcon },
-  { name: "Pengiriman", description: "Data Pengiriman Produk kepada Customer", href: "#", icon: TruckIcon },
-  { name: "Laporan", description: "Laporan Penjualan Sales", href: "#", icon: ClipboardDocumentListIcon },
+  { name: "Customer", description: "Data Customer, Alamat dan toko", href: "/user/sales/customer", icon: BuildingStorefrontIcon },
+  { name: "Pembelian", description: "Data Pembelian Customer melalui Sales", href: "/user/sales/purchase", icon: ShoppingBagIcon },
+  { name: "Pengiriman", description: "Data Pengiriman Produk kepada Customer", href: "/user/sales/delivery", icon: TruckIcon },
+  { name: "Laporan", description: "Laporan Penjualan Sales", href: "/user/sales/report", icon: ClipboardDocumentListIcon },
 ];
 
 const transactionMenu = [
-  { name: "Pembelian", description: "Data Pembelian Customer seluruh Sales", href: "#", icon: ShoppingBagIcon },
-  { name: "Pengiriman", description: "Data Pengiriman Produk kepada Customer seluruh Sales", href: "#", icon: TruckIcon },
-  { name: "Laporan", description: "Laporan Penjualan seluruh Sales", href: "#", icon: ClipboardDocumentListIcon },
-  { name: "Customer", description: "Data Customer, Alamat dan toko", href: "#", icon: BuildingStorefrontIcon },
-  { name: "Sales", description: "Data Sales distributor", href: "#", icon: IdentificationIcon },
-  { name: "Driver", description: "Data sopir distributor", href: "#", icon: IdentificationIcon },
-  { name: "Armada", description: "Data kendaraan distributor", href: "#", icon: TruckIcon },
-  { name: "Produk", description: "Data Produk distributor", href: "/admin/product", icon: GiftIcon },
+  { name: "Pembelian", description: "Data Pembelian Customer seluruh Sales", href: "/user/admin/purchase", icon: ShoppingBagIcon },
+  { name: "Pengiriman", description: "Data Pengiriman Produk kepada Customer seluruh Sales", href: "/user/admin/delivery", icon: TruckIcon },
+  { name: "Laporan", description: "Laporan Penjualan seluruh Sales", href: "/user/admin/report", icon: ClipboardDocumentListIcon },
+  { name: "Customer", description: "Data Customer, Alamat dan toko", href: "/user/admin/customer", icon: BuildingStorefrontIcon },
+  { name: "Sales", description: "Data Sales distributor", href: "/user/admin/sales", icon: IdentificationIcon },
+  { name: "Driver", description: "Data sopir distributor", href: "/user/admin/driver", icon: IdentificationIcon },
+  { name: "Armada", description: "Data kendaraan distributor", href: "/user/admin/truck", icon: TruckIcon },
+  { name: "Produk", description: "Data Produk distributor", href: "/user/admin/product", icon: GiftIcon },
 ];
 
 const driverMenu = [
-  { name: "Customer", description: "Data Customer, Alamat dan toko tujuan pengiriman", href: "#", icon: BuildingStorefrontIcon },
-  { name: "Pengiriman", description: "Data Pengiriman Produk kepada Customer", href: "#", icon: TruckIcon },
+  { name: "Customer", description: "Data Customer, Alamat dan toko tujuan pengiriman", href: "/user/driver/customer", icon: BuildingStorefrontIcon },
+  { name: "Pengiriman", description: "Data Pengiriman Produk kepada Customer", href: "/user/driver/delivery", icon: TruckIcon },
 ];
 
 const HeaderMenu = () => {
@@ -104,7 +104,7 @@ const HeaderMenu = () => {
             </div>
 
             <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-              <Link href="product" className="text-sm font-semibold text-gray-900">
+              <Link href="/product" className="text-sm font-semibold text-gray-900">
                 Produk
               </Link>
 
@@ -189,7 +189,7 @@ const HeaderMenu = () => {
             <div className="fixed inset-0 z-10" />
             <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm">
               <div className="flex items-center justify-between">
-                <Link onClick={closeDialogMenu} href="#" className="-m-1.5 p-1.5">
+                <Link onClick={closeDialogMenu} href="/" className="-m-1.5 p-1.5">
                   <img src="/icon-sosro.svg" alt="Logo" className="h-8 w-auto p-1 border-4 border-red-600 rounded-md" />
                 </Link>
                 <button
@@ -204,7 +204,7 @@ const HeaderMenu = () => {
               {/* Mobile Menu Links */}
               <Disclosure as="div" className="mt-6">
                 <DisclosureButton className="flex items-center rounded-lg text-gray-700">
-                  <Link onClick={closeDialogMenu} href="product" className="block rounded-lg text-gray-900 font-semibold">
+                  <Link onClick={closeDialogMenu} href="/product" className="block rounded-lg text-gray-900 font-semibold">
                     Produk
                   </Link>
                 </DisclosureButton>

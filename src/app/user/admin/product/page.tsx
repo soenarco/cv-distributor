@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { MdAddBox } from "react-icons/md";
 import { apiGetAllProduct } from '@/app/utils/apiAction';
 import LoadingScreen from '@/app/component/loadingScreen';
@@ -20,6 +21,7 @@ export type Product = {
 };
 
 export default function AdminProductPage() {
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -38,6 +40,10 @@ export default function AdminProductPage() {
     fetchProducts();
   }, []);
 
+  const handleBtnAddProduct = async () => {
+    router.push('/user/admin/product/add');
+  };
+
   if (loading) {
     return <LoadingScreen isVisible={loading} />
   }
@@ -50,8 +56,6 @@ export default function AdminProductPage() {
     { type: 'string', key: 'package', label: 'Kemasan' },
     { type: 'currency', key: 'harga', label: 'Harga' },
     { type: 'boolean', key: 'isReadyStock', label: 'Ready Stock' },
-    // { type: 'string', key: 'createdAt', label: 'Created At' },
-    // { type: 'string', key: 'updatedAt', label: 'Updated At' },
   ] as { type: string, key: keyof Product; label: string }[];
 
   return (
@@ -63,7 +67,7 @@ export default function AdminProductPage() {
         <div className="p-4 col-span-12 lg:col-span-2">
           <button
             className="flex items-center gap-2 border border-orange-600 text-orange-600 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-orange-600 hover:text-white transition duration-200"
-            onClick={() => console.log('Tambah Produk clicked')}
+            onClick={handleBtnAddProduct}
           >
             <MdAddBox className="h-5 w-5" />
             Tambah Produk
